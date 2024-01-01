@@ -1,0 +1,32 @@
+/* set general font-attributes */
+body {
+	font-family: "Liberation Sans", "Arial", "Trebuchet MS", "Noto Sans", "FreeSans", "DejaVu Sans Condensed", Helvetica, sans-serif;
+	font-size: 15px;
+}
+
+/* set attributes for calculation-box */
+.calculation-box {
+	max-width: 500px;
+	margin: 25px auto;
+	border: 1px solid #B0B0B0;
+	border-radius: 5px;
+	padding: 5px 10px; /* [horiz.] [vert.] */
+	box-sizing: border-box;
+}
+.calculation-box h1/*,
+.calculation-box h2,
+.calculation-box h3,
+.calculation-box h4,
+.calculation-box h5,
+.calculation-box h6*/ {
+	text-align: center;
+}
+.calculation-box form button {
+	width: 100%;
+	background-color: orange;
+	border-radius: 5px;
+	border: 2px solid #C0C0C0;
+	padding: 5px 10px;
+	color: #FFF;
+	font-weight: bold;
+}

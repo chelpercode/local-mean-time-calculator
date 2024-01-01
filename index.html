@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Head -->
+		<title>Local Mean Time Calculator</title>
+		<link href="assets/style.css" rel="stylesheet" type="text/css" />
+	</head>
+
+	<body>
+		<div class="calculation-box">
+			<h1>Local Mean Time Calculator</h1>
+			<form id="form-for-data" method="post">
+				<!-- General Date and Time Input -->
+				<h3>Time of Birth</h3>
+				<label>Date of Birth:</label><br />
+				<input id="data-day" type="text" placeholder="Day" size="3" /> . 
+				<input id="data-month" type="text" placeholder="Month" size="3" /> . 
+				<input id="data-year" type="text" placeholder="Year" size="6" />
+				<br /><br />
+				<label>Time of Birth:</label><br />
+				<input id="data-hour" type="text" placeholder="Hour" size="3" /> : 
+				<input id="data-minute" type="text" placeholder="Minute" size="3" />
+				<br /><br />
+
+				<!-- Daylight Saving Time Input and Explanation -->
+				<h3>Daylight Saving Time</h3>
+				<!--<p>Daylight Saving Time (sometimes also known as "Summer Time")</p>-->
+				<p>„Daylight Saving Time“ (sometimes also known as „Summer Time“) describes the practice of altering the time on the clock by about 1 hour for a certain timeframe during the year.<br />
+				<br />
+				You probably know this as the practice of turning the clock forward in spring and turning the clock back in autumn.<br />
+				<br />
+				Click the checkbox below if DST applies to the birth-time entered above:</p>
+				<input id="data-dst" type="checkbox" /> Daylight Saving Time applies to the above date<br /><br />
+				<a id="dst-link" href="https://www.timeanddate.com/time/dst/1970.html" target="_blank">Check DST Status Here</a><br />
+				<p>Note: The DST-Link above is automatically updated to the year you entered above in the date. The database of that link only goes back to 
+				1970 though. If you are born before that, you might have to consult other references to get these information (the above link will then reference 1970 btw.).</p>
+				<p>In case the birthtime lies before 1970, <a target="_blank" href="https://www.timeanddate.com/time/dst/statistics.html">this link</a> might help, though there might be a need 
+				   to do a little deeper research into the actual situation</p>
+				<p>Also Note that "war time" should be just another term for Daylight Saving Time. There also seems to be "Double War Time" or "Double Daylight Saving Time" 
+				   which this calculator does NOT account for.</p>
+
+				<!-- Timezone Input -->
+				<h3>Timezone</h3>
+				<p>Click the link below to get a list of known timezones with their utc-values.</p>
+				<a href="#" class="dropper">Show/Hide Timezones</a>
+				<div id="list-timezones" style="display: none;"></div>
+				<div id="standard-timezones" style="display: none;">
+					Standard Time Zones<br />
+					===================<br />
+					(UTC-08:00) Pacific Standard Time (PST)<br />
+					(UTC-07:00) Mountain Standard Time (MST)<br />
+					(UTC-06:00) Central Standard Time (CST)<br />
+					(UTC-05:00) Eastern Standard Time (EST)<br />
+					(UTC-09:00) Alaska Standard Time (AKST)<br />
+					(UTC-10:00) Hawaii Standard Time<br />
+					<br />
+				</div>
+				<br /><br />
+				<select id="data-timezone">
+					<option value="-12">UTC-12</option>
+					<option value="-11">UTC-11</option>
+					<option value="-10">UTC-10</option>
+					<option value="-9">UTC-9</option>
+					<option value="-8">UTC-8</option>
+					<option value="-7">UTC-7</option>
+					<option value="-6">UTC-6</option>
+					<option value="-5">UTC-5</option>
+					<option value="-4">UTC-4</option>
+					<option value="-3">UTC-3</option>
+					<option value="-2">UTC-2</option>
+					<option value="-1">UTC-1</option>
+					<option selected="selected" value="0">UTC+0</option>
+					<option value="1">UTC+1</option>
+					<option value="2">UTC+2</option>
+					<option value="3">UTC+3</option>
+					<option value="4">UTC+4</option>
+					<option value="5">UTC+5</option>
+					<option value="6">UTC+6</option>
+					<option value="7">UTC+7</option>
+					<option value="8">UTC+8</option>
+					<option value="9">UTC+9</option>
+					<option value="10">UTC+10</option>
+					<option value="11">UTC+11</option>
+					<option value="12">UTC+12</option>
+					<option value="13">UTC+13</option>
+				</select>
+
+				<!-- Longitude of Birthplace Input (and Explanation) -->
+				<h3>Longitude of Birthplace</h3>
+				<p>Figure out the longitude of your birthplace <a href="https://latitude.to/" target="_blank">here</a></p>
+				<input id="data-longitude" type="text" placeholder="Longitude" /><br />
+				<p>It is the second value. Please use the decimal value (e.g. "10.39731") and NOT the degree-value (e.g. "10º23'50.12" E").<br />
+				<br />
+				Also note that the tool above often not just allows you to select the city of birth, but also the rough location within the city (like the specific hospital in the city) which might help in achieving higher accuracy in some cases (although the neccessity of it could be considered doubtworthy).</p>
+				<!-- <br /> -->
+				<button type="submit">Calculate Results</button>
+			</form>
+
+			<!-- Calculation-Results (and Calculation-Table) -->
+			<h3>Results</h3>
+			<a href="#" class="dropper">Show/Hide Calculation</a>
+			<table border="1" style="display: none;">
+				<tr>
+					<th>Desired Value</th>
+					<th>Process</th>
+					<th>Calculation</th>
+					<th>Result</th>
+				</tr>
+				<tr>
+					<td>Timezone Longitude</td>
+					<td>UTC-Value * 15°</td>
+					<td id="table-calc-timezone-longitude">(1*15°)</td>
+					<td id="table-result-timezone-longitude">(15°)</td>
+				</tr>
+				<tr>
+					<td>Difference in Longitude</td>
+					<td>Long. of Birthpace - Long. of Timezone</td>
+					<td id="table-calc-diff-longitude">(10.39° - 15°)</td>
+					<td id="table-result-diff-longitude">(-4.61°)</td>
+				</tr>
+				<tr>
+					<td>Long. Time Difference</td>
+					<td>Diff. in Long. * 4 min. per degree</td>
+					<td id="table-calc-longitude-time-difference">(-4.61° * 4 min./°)</td>
+					<td id="table-result-longitude-time-difference">(-18,44 min.)</td>
+				</tr>
+				<tr>
+					<td>DST Time Difference</td>
+					<td>-1 hour if Daylight Savings Time</td>
+					<td></td>
+					<td id="table-result-dst-time-difference">(-0 min.)</td>
+				</tr>
+				<tr>
+					<td>Overall Time Difference</td>
+					<td>DST Time Difference + Long. Time Difference</td>
+					<td id="table-calc-overall-time-difference">(-0 min. - 18,44 min.)</td>
+					<td id="table-result-overall-time-difference">(-18,44 min.)</td>
+				</tr>
+			</table>
+			<!--
+				<p>Timezone Longitude: 1*15° = 15°</p>
+				<p>Difference in Longitude: 10.39° - 15° = -4.61°</p>
+				<p>Time Difference: -4.61° * 4 minutes/° = -18,44 minutes</p>
+				<p>Daylight Savings Time: -0 hours</p>
+			-->
+			<p>Local Mean Time: <span id="result-string"></span></p>
+			<!-- <p>[Results]</p> -->
+		</div>
+
+		<!-- Javascript -->
+		<script src="assets/script.js" type="text/javascript" language="javascript"></script>
+	</body>
+</html>
