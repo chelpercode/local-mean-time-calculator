@@ -1,4 +1,4 @@
-# local-mean-time-calculator-template
+# local-mean-time-calculator
 
 Calculating the Local Mean Time of A Birthday and Birthtime From the Documented Birthtime
 
